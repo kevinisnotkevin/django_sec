@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-5">
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+
+      <div class="card">
+        <h2 class="card-title text-center my-3">{{ post.title }}</h2>
+        <div class="text-muted text-center mb-3">
+          <div>
+            Создан: {{ post.created_on|date:'d.m.Y' }},
+            Автор
+            <a class="badge badge-secondary" href="{% url 'profile' post.author.username %}">
+              {{ post.author }}
+            </a>
+          </div>
+          <div>
+          </div>
+        </div>
+        {% if post.image %}
+        <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        {% if post.author == request.user %}
+        <div class="mt-2">
+          <a class="btn" href="{% url 'post_update' post.id %}">
+            <img class="" src="{% static 'settings.svg' %}">
+          </a>
+          <a class="btn" href="{% url 'post_delete' post.id %}">
+            <img class="" src="{% static 'remove.svg' %}">
+          </a>
+        </div>
+        {% endif %}
+        <div class="card-text p-4">
+          {{ post.content }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}

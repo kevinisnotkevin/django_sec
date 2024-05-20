@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" crossorigin="anonymous">
+  <title>{% block head_title %}Блог{% endblock %}</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm container-sm">
+      <div class="navbar-nav m-auto">
+        <a href="{% url 'home' %}" class="nav-item nav-link">
+          <img class="" src="{% static 'menu.svg' %}">
+        </a>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'post_create' %}" class="nav-item nav-link">
+          <img class="" src="{% static 'add.svg' %}">
+        </a>
+        <a href="{% url 'profile' request.user.username %}" class="nav-item nav-link">
+          <img class="" src="{% static 'account.svg' %}">
+        </a>
+        <a href="{% url 'logout' %}" class="nav-item nav-link">
+          <img class="" src="{% static 'logout.svg' %}">
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}" class="nav-item nav-link">
+          <img class="" src="{% static 'login.svg' %}">
+        </a>
+        {% endif %}
+      </div>
+  </nav>
+  <div class="container-sm">
+    {% block content %}
+    {% endblock content %}
+  </div>
+</body>
+</html>
